@@ -1,0 +1,18 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn.preprocessing import LabelEncoder
+from sklearn.ensemble import RandomForestRegressor
+df= pd.read_csv('https://raw.githubusercontent.com/asr7code/ML-dataset/main/flight_dataset.csv')
+le= LabelEncoder()
+df["Airline"]=le.fit_transform(df["Airline"])
+df["Source"]=le.fit_transform(df["Source"])
+df["Destination"]=le.fit_transform(df["Destination"])
+x=df.drop("Price",axis=1)
+y=df["Price"]
+model=RandomForestRegressor()
+model.fit(x,y)
+model.score(x,y)
+res=model.predict([[1,3,0,2,1,5,2019,5,50,13,15,7,25]])
+op = "Price is : " + str(res[0])
+print(op)
